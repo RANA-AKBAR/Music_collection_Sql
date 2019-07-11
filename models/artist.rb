@@ -26,6 +26,12 @@ class Artist
     end
 
 
+    def update()
+      sql "UPDATE artist SET (name) VALUES = $1"
+      values =[$1]
+      SqlRunner(sql, values)
+    end
+
     def delete()
       sql = "DELETE
       FROM artist
@@ -43,6 +49,13 @@ class Artist
       sql = "SELECT * FROM artist"
       artists = SqlRunner.run(sql)
       return artists.map { |artist| Artist.new(artist) }
+    end
+
+    def self.list(id)
+      sql = "SELECT * FROM artist WHERE id = $1"
+      values =[id]
+      artist = SqlRunner.run(sql)
+      return artist.map { |artist| Artist.new(artis) }
     end
 
 
